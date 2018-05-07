@@ -22,19 +22,20 @@ a {
 
 .content-box {
     position: absolute;
-    left: 250px;
+    left: 200px;
     right: 0;
     top: 70px;
     bottom: 0;
     overflow-y: scroll;
     -webkit-transition: left .3s ease-in-out;
     transition: left .3s ease-in-out;
-    background: #f0f0f0;
+    /* background: #f0f0f0; */
+    background: #fff;
 }
 
 .content {
     width: auto;
-    padding: 30px;
+    padding: 15px;
 }
 
 .content-collapse {
@@ -49,12 +50,12 @@ a {
 }
 
 .crumbs {
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
 .pagination {
     margin: 20px 0;
-    text-align: right;
+    /* text-align: right; */
 }
 
 .plugins-tips {
@@ -167,3 +168,4 @@ a {
 .v-note-wrapper .v-note-panel {
     min-height: 500px;
 }
+

@@ -1,14 +1,15 @@
 <template>
     <div class="sidebar">
-        <el-menu class="sidebar-el-menu" :default-active="onRoutes" :collapse="collapse" background-color="#324157" text-color="#bfcbd9" active-text-color="#20a0ff" unique-opened router>
+        <el-menu class="sidebar-el-menu" :default-active="onRoutes" :collapse="collapse" background-color="#eef1f6" text-color="#030303" active-text-color="#20a0ff" unique-opened router>
             <template v-for="item in items">
                 <template v-if="item.subs">
                     <el-submenu :index="item.index" :key="item.index">
                         <template slot="title">
-                            <i :class="item.icon"></i>
+                            <i :class="item.icon" class="iconfont"></i>
                             <span slot="title">{{ item.title }}</span>
                         </template>
                         <el-menu-item v-for="(subItem,i) in item.subs" :key="i" :index="subItem.index">
+                            <i :class="subItem.icon" class="iconfont"></i>                            
                             {{ subItem.title }}
                         </el-menu-item>
                     </el-submenu>
@@ -32,27 +33,29 @@ export default {
       collapse: false,
       items: [
         {
-          icon: "el-icon-setting",
+          icon: "icon-caiwuguanli",
           index: "finance",
           title: "财务管理",
-            subs: [
+          subs: [
             {
+              icon: "icon-jiaoyijilu",
               index: "deal",
               title: "交易流水"
             }
           ]
         },
         {
-          icon: "el-icon-tickets",
+          icon: "icon-huiyuanguanli",
           index: "member",
           title: "会员管理",
-           subs: [
+          subs: [
             {
+              icon: "icon-membership-card_icon",
               index: "membercard",
               title: "会员卡"
             }
           ]
-        },
+        }
         // {
         //   icon: "el-icon-message",
         //   index: "tabs",
@@ -119,17 +122,17 @@ export default {
 </script>
 
 <style scoped>
-    .sidebar{
-        display: block;
-        position: absolute;
-        left: 0;
-        top: 70px;
-        bottom:0;
-    }
-    .sidebar-el-menu:not(.el-menu--collapse){
-        width: 250px;
-    }
-    .sidebar > ul {
-        height:100%;
-    }
+.sidebar {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 70px;
+  bottom: 0;
+}
+.sidebar-el-menu:not(.el-menu--collapse) {
+  width: 200px;
+}
+.sidebar > ul {
+  height: 100%;
+}
 </style>

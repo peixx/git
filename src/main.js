@@ -6,13 +6,25 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';    // 默认主题
 // import '../static/css/theme-green/index.css';       // 浅绿色主题
 import "babel-polyfill";
-axios.defaults.baseURL = 'http://192.168.0.251:8088'
+import './assets/icon/iconfont.css';
+axios.defaults.baseURL = 'http://192.168.0.251:8088';
+// axios.defaults.headers.token = '123456789';
 Vue.use(ElementUI, { size: 'small' });
 Vue.prototype.$axios = axios;
 
 //使用钩子函数对路由进行权限跳转
 router.beforeEach((to, from, next) => {
     const role = localStorage.getItem('ms_username');
+
+    if (to.path != '/login') {
+        if (role) {
+            next()
+        } else {
+            next('/login')
+        }
+    } else {
+        next()
+    }
     // if(!role && to.path !== '/login'){
     //     next('/login');
     // }else if(to.meta.permission){
@@ -25,7 +37,7 @@ router.beforeEach((to, from, next) => {
     //             confirmButtonText: '确定'
     //         });
     //     }else{
-            next();
+            // next();
     //     }
     // }
 })

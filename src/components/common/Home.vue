@@ -11,6 +11,7 @@
                     </keep-alive>
                 </transition>
             </div>
+            <v-footer></v-footer>            
         </div>
     </div>
 </template>
@@ -18,7 +19,8 @@
 <script>
     import vHead from './Header.vue';
     import vSidebar from './Sidebar.vue';
-    // import vTags from './Tags.vue';
+    import vTags from './Tags.vue';
+    import vFooter from './Footer.vue';
     import bus from '../common/bus';
     export default {
         data(){
@@ -27,7 +29,7 @@
             }
         },
         components:{
-            vHead, vSidebar
+            vHead, vSidebar, vTags,vFooter
         },
         created(){
             bus.$on('collapse', msg => {

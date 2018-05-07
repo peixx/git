@@ -1,25 +1,25 @@
 <template>
     <div class="table">
         <div class="crumbs">
-            <el-breadcrumb separator="/">
+            <!-- <el-breadcrumb separator="/">
                 <el-breadcrumb-item>
                     <i class="el-icon-tickets"></i> 会员卡消费记录</el-breadcrumb-item>
-            </el-breadcrumb>
+            </el-breadcrumb> -->
         </div>
         <div class="container">
             <div class="handle-box">
-                <!-- <el-button type="primary" icon="delete" class="handle-del mr10" @click="delAll">批量删除</el-button> -->
+                <el-button type="danger" icon="delete" class="handle-del mr10" @click="delAll">批量删除</el-button>
+               <el-button icon="el-icon-refresh" circle></el-button>
 
                 <el-input v-model="select_word" placeholder="会员名" class="handle-input mr10"></el-input>
                 <el-input v-model="select_phone" placeholder="会员电话" class="handle-input mr10"></el-input>
                 <el-date-picker v-model="time" type="daterange" value-format="yyyy-MM-dd" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2">
                 </el-date-picker>
                 <el-button type="primary" icon="el-icon-search" @click="search">查询</el-button>
-                <!-- <el-button type="primary" icon="search" @click="search">查询</el-button> -->
                 <el-button type="primary" icon="el-icon-download" @click="derive">导出</el-button>
             </div>
-            <el-table :data="data.data.cardOrderList" border style="width: 100%" ref="multipleTable" @selection-change="handleSelectionChange">
-                <el-table-column type="selection" width="55"></el-table-column>
+            <el-table stripe border highlight-current-row :data="data.data.cardOrderList" style="width: 100%" ref="multipleTable" @selection-change="handleSelectionChange">
+                <el-table-column type="selection" width="40"></el-table-column>
                 <el-table-column prop="orderNo" label="卡号" width="150">
                 </el-table-column>
                 <el-table-column prop="memberName" label="会员名" width="120">
@@ -31,10 +31,14 @@
                 </el-table-column>
                 <el-table-column prop="createTime" sortable label="消费时间">
                 </el-table-column>
-
+                 <el-table-column label="操作" width="150">
+                    <template slot-scope="scope">
+                        <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)"><i class="el-icon-delete"></i></el-button>
+                    </template>
+                </el-table-column>
             </el-table>
             <div class="pagination">
-                <el-pagination @current-change="handleCurrentChange" layout="prev, pager, next" :total="data.totalCount">
+               <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[10, 20, 30]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="data.data.totalCount">
                 </el-pagination>
             </div>
         </div>
@@ -110,6 +114,10 @@ export default {
   },
   computed: {},
   methods: {
+      //批量删除
+      delAll(){
+        this.data.data.cardOrderList=[]  
+      },
     // 分页导航
     handleCurrentChange(val) {
       this.cur_page = val;

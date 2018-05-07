@@ -1,14 +1,15 @@
 <template>
     <div class="table">
         <div class="crumbs">
-            <el-breadcrumb separator="/">
+            <!-- <el-breadcrumb separator="/">
                 <el-breadcrumb-item>
                     <i class="el-icon-tickets"></i> 会员卡</el-breadcrumb-item>
-            </el-breadcrumb>
+            </el-breadcrumb> -->
         </div>
         <div class="container">
             <div class="handle-box">
                 <!-- <el-button type="primary" icon="delete" class="handle-del mr10" @click="delAll">批量删除</el-button> -->
+               <el-button icon="el-icon-refresh" circle></el-button>
 
                 <el-input v-model="select_word" placeholder="会员名" class="handle-input mr10"></el-input>
                 <el-input v-model="select_phone" placeholder="会员电话" class="handle-input mr10"></el-input>
@@ -19,8 +20,8 @@
                 <!-- <el-button type="primary" icon="search" @click="search">查询</el-button> -->
                 <el-button type="primary" icon="el-icon-download" @click="derive">导出</el-button>
             </div>
-            <el-table :data="data.data.memberCards" border style="width: 100%" ref="multipleTable" @selection-change="handleSelectionChange">
-                <el-table-column type="selection" width="55"></el-table-column>
+            <el-table stripe border highlight-current-row :data="data.data.memberCards" style="width: 100%" ref="multipleTable" @selection-change="handleSelectionChange">
+                <el-table-column type="selection" width="40"></el-table-column>
                 <el-table-column prop="memberId" label="卡号" width="150">
                 </el-table-column>
                 <el-table-column prop="memberName" label="会员名" width="120">
@@ -44,7 +45,7 @@
                 </el-table-column>
             </el-table>
             <div class="pagination">
-                <el-pagination @current-change="handleCurrentChange" layout="prev, pager, next" :total="data.totalCount">
+                <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[10, 20, 30]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="data.data.totalCount">
                 </el-pagination>
             </div>
         </div>
@@ -55,7 +56,8 @@
 export default {
   data() {
     return {
-      url: "http://192.168.0.251:8088/mockjsdata/12/mplatform/api/pcmerchant/getMemberCards",
+      url:
+        "http://192.168.0.251:8088/mockjsdata/12/mplatform/api/pcmerchant/getMemberCards",
       //   tableData: [],
       data: {},
       date1: "",
@@ -152,8 +154,8 @@ export default {
     sendParams(index) {
       let data = this.data.data.memberCards[index].id;
       this.$router.push({
-        name: 'BaseQb',
-        path:'/qb',
+        name: "BaseQb",
+        path: "/qb",
         params: {
           id: data
         }
